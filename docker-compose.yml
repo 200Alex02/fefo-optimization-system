@@ -1,9 +1,35 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: fefo_optimization_db
+      POSTGRES_USER: fefo_user
+      POSTGRES_PASSWORD: fefo_demo_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/sql/01_init_db.sql:/docker-entrypoint-initdb.d/01_init_db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fefo_user -d fefo_optimization_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+
   backend:
     build:
       context: ./backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: fefo_optimization_db
+      DB_USER: fefo_user
+      DB_PASSWORD: fefo_demo_password
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
 
   frontend:
     build:
@@ -12,3 +38,6 @@ services:
       - "8080:80"
     depends_on:
       - backend
+
+volumes:
+  postgres_data:

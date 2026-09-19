@@ -6,16 +6,9 @@
 -- Дата: 2024-05-01
 -- ============================================================================
 
--- Создание базы данных
-CREATE DATABASE fefo_optimization_db
-    WITH 
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.UTF-8'
-    LC_CTYPE = 'en_US.UTF-8'
-    TEMPLATE = template0;
-
--- Подключение к базе данных
-\c fefo_optimization_db;
+-- Скрипт выполняется внутри уже созданной БД fefo_optimization_db.
+-- В Docker Compose БД создаётся переменной POSTGRES_DB, затем PostgreSQL
+-- автоматически запускает этот файл из docker-entrypoint-initdb.d.
 
 -- ============================================================================
 -- СОЗДАНИЕ ТАБЛИЦ (DDL)

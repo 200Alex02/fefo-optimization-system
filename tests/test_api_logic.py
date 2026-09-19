@@ -1,12 +1,13 @@
 from datetime import date
 import unittest
 
-from app.main import PLAN_REGISTRY, ApprovalRequest, PlanRequest, approve_plan, calculate_plan
+from app.main import approve_plan, calculate_plan, repository
+from app.schemas import ApprovalRequest, PlanRequest
 
 
 class ApiLogicTests(unittest.TestCase):
     def setUp(self):
-        PLAN_REGISTRY.clear()
+        repository.clear_plans()
 
     def test_calculate_and_approve_plan(self):
         result = calculate_plan(
