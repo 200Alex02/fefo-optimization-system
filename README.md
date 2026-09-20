@@ -60,6 +60,19 @@ npm run dev
 
 Vite откроет интерфейс по адресу [http://localhost:5173](http://localhost:5173). В development-режиме запросы `/api` автоматически перенаправляются на FastAPI по адресу `http://127.0.0.1:8000`.
 
+## Тестирование
+
+Для запуска автоматических тестов установите зависимости тестового окружения и выполните обнаружение тестов из корня проекта:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements-dev.txt
+PYTHONPATH=backend python -m unittest discover -s tests -v
+```
+
+Набор тестов проверяет алгоритм FEFO, обработку дефицита, HTTP-маршруты FastAPI и состав Docker Compose. Для production-сборки frontend рекомендуется выполнять `npm ci` в среде той же операционной системы, в которой проводится сборка, после чего запустить `npm run build`.
+
 ## Демонстрационный сценарий
 
 1. Откройте вкладку **«Обзор»** и проверьте показатели, заказы и сообщение о рисковых партиях.

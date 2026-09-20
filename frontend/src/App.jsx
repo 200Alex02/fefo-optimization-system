@@ -77,6 +77,8 @@ function Topbar({ title, breadcrumb, onCreate }) {
 
 function Dashboard({ data, onCreate }) {
   if (!data) return <div className="loading-panel">Загрузка рабочего стола…</div>
+  const riskCount = data.at_risk.length
+  const riskLabel = riskCount === 1 ? 'партия требует' : riskCount < 5 ? 'партии требуют' : 'партий требуют'
 
   return (
     <>
@@ -107,7 +109,7 @@ function Dashboard({ data, onCreate }) {
       </section>
       <section className="risk-banner">
         <span className="risk-banner__icon">!</span>
-        <div><h3>3 партии требуют использования в течение 48 часов</h3><p>Проверьте рекомендации алгоритма FEFO перед формированием плана.</p></div>
+        <div><h3>{riskCount} {riskLabel} использования в течение ближайших четырёх дней</h3><p>Проверьте рекомендации алгоритма FEFO перед формированием плана.</p></div>
         <button className="link-button">Открыть →</button>
       </section>
     </>

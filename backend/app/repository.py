@@ -49,6 +49,7 @@ class DemoPlanningRepository:
                 "days_left": (batch.expiry_date - reference_date).days,
             }
             for batch in sorted(self._batches, key=lambda item: item.expiry_date)
+            if 0 <= (batch.expiry_date - reference_date).days <= 4
         ]
         return {
             "date_label": reference_date.strftime("%d сентября %Y г."),
